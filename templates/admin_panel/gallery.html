@@ -1,0 +1,82 @@
+{% extends "admin_panel/base.html" %}
+
+{% block title %}Galerie{% endblock %}
+
+{% block admin_content %}
+<div class="flex items-center justify-between mb-6">
+    <div>
+        <h1 class="text-2xl font-bold text-gray-900">Galerie</h1>
+        <p class="text-sm text-gray-500 mt-1">Fotoalba a videa</p>
+    </div>
+    <div class="flex gap-2">
+        <a href="{% url 'admin_video_create' %}" class="px-4 py-2.5 bg-white text-gray-700 text-sm font-medium rounded-xl hover:bg-gray-50 transition-all border border-gray-200 flex items-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+            Nové video
+        </a>
+        <a href="{% url 'admin_album_create' %}" class="px-4 py-2.5 bg-blue-600 text-white text-sm font-medium rounded-xl hover:bg-blue-700 transition-all shadow-sm flex items-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/></svg>
+            Nové album
+        </a>
+    </div>
+</div>
+
+{% if albums %}
+<div class="mb-8">
+    <h2 class="text-lg font-bold text-gray-900 mb-4">Fotoalba</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {% for album in albums %}
+        <div class="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden group">
+            <div class="aspect-[16/10] bg-gray-100 relative">
+                {% if album.cover_image %}
+                <img src="{{ album.cover_image.url }}" alt="" class="w-full h-full object-cover">
+                {% else %}
+                <div class="w-full h-full flex items-center justify-center text-gray-300">
+                    <svg class="w-12 h-12" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                </div>
+                {% endif %}
+                <span class="absolute bottom-2 right-2 bg-black/50 text-white text-xs px-2 py-0.5 rounded-full">{{ album.photo_count }} fotek</span>
+            </div>
+            <div class="p-4 flex items-center justify-between">
+                <div>
+                    <h3 class="font-medium text-sm text-gray-900">{{ album.title }}</h3>
+                    {% if album.date %}<p class="text-xs text-gray-400">{{ album.date|date:"j.n.Y" }}</p>{% endif %}
+                </div>
+                <div class="flex gap-1">
+                    <a href="{% url 'admin_album_edit' album.pk %}" class="p-1.5 text-gray-400 hover:text-blue-600 rounded-lg"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg></a>
+                    <form method="post" action="{% url 'admin_album_delete' album.pk %}" onsubmit="return confirm('Smazat album a všechny fotky?')" class="inline">{% csrf_token %}<button type="submit" class="p-1.5 text-gray-400 hover:text-red-600 rounded-lg"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg></button></form>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+
+{% if videos %}
+<div>
+    <h2 class="text-lg font-bold text-gray-900 mb-4">Videa</h2>
+    <div class="bg-white rounded-xl border border-gray-100 shadow-sm overflow-hidden">
+        <div class="divide-y divide-gray-50">
+            {% for v in videos %}
+            <div class="px-5 py-4 flex items-center justify-between hover:bg-gray-50/50 transition-colors">
+                <div>
+                    <span class="font-medium text-sm text-gray-900">{{ v.title }}</span>
+                    <p class="text-xs text-gray-400 mt-0.5">{{ v.url }}</p>
+                </div>
+                <div class="flex gap-2">
+                    <a href="{% url 'admin_video_edit' v.pk %}" class="p-1.5 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg></a>
+                    <form method="post" action="{% url 'admin_video_delete' v.pk %}" onsubmit="return confirm('Smazat?')" class="inline">{% csrf_token %}<button type="submit" class="p-1.5 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg></button></form>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endif %}
+
+{% if not albums and not videos %}
+<div class="bg-white rounded-xl border border-gray-100 shadow-sm p-12 text-center">
+    <p class="text-gray-500 mb-4">Zatím nejsou žádná alba ani videa</p>
+</div>
+{% endif %}
+{% endblock %}

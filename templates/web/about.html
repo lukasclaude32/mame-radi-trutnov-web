@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}Kdo jsme – Máme rádi Trutnov{% endblock %}
+
+{% block content %}
+<section class="py-16 lg:py-24">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <span class="text-primary-600 font-semibold text-sm uppercase tracking-wider">O nás</span>
+            <h1 class="text-3xl lg:text-5xl font-bold text-gray-900 mt-2">Kdo jsme</h1>
+        </div>
+        <div class="prose prose-lg max-w-none">
+            {% if site_settings.about_text %}
+            <div class="bg-white rounded-2xl p-8 lg:p-12 shadow-sm border border-gray-100 space-y-6 text-gray-600 leading-relaxed text-lg">
+                {{ site_settings.about_text|linebreaksbr }}
+            </div>
+            {% else %}
+            <div class="bg-white rounded-2xl p-8 lg:p-12 shadow-sm border border-gray-100 space-y-6 text-gray-600 leading-relaxed text-lg">
+                <p>Základem projektu byla snaha skupiny lidí kolem bývalého starosty a stávajícího zastupitele Ivana Adamce vyjádřit náklonnost městu, v němž žijeme.</p>
+                <p>Slovní spojení <strong class="text-gray-900">Máme rádi Trutnov</strong> se stalo jednoduchým mottem a svůj význam neztratilo dodnes.</p>
+                <p>Cílem zůstává využít při správě věcí veřejných nabyté zkušenosti, odpovědnost a konkrétní, splnitelné vize k rozvoji Trutnova v sebevědomé evropské město se všemi službami a vybaveností, jež ke spokojenému životu jeho obyvatelé potřebují.</p>
+                <p>Jsme připraveni i nadále měnit Trutnov v město, kde se dobře žije, kam se budou rádi vracet naše děti po studiích.</p>
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 text-center">
+                <div class="w-14 h-14 bg-primary-50 rounded-xl flex items-center justify-center mx-auto mb-4">
+                    <svg class="w-7 h-7 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                </div>
+                <h3 class="font-bold text-gray-900 mb-2">Zkušený tým</h3>
+                <p class="text-gray-500 text-sm">Kandidáti s dlouholetými zkušenostmi ve veřejné správě</p>
+            </div>
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 text-center">
+                <div class="w-14 h-14 bg-primary-50 rounded-xl flex items-center justify-center mx-auto mb-4">
+                    <svg class="w-7 h-7 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                </div>
+                <h3 class="font-bold text-gray-900 mb-2">Konkrétní vize</h3>
+                <p class="text-gray-500 text-sm">Splnitelné cíle a jasný program pro rozvoj města</p>
+            </div>
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 text-center">
+                <div class="w-14 h-14 bg-primary-50 rounded-xl flex items-center justify-center mx-auto mb-4">
+                    <svg class="w-7 h-7 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+                </div>
+                <h3 class="font-bold text-gray-900 mb-2">Láska k městu</h3>
+                <p class="text-gray-500 text-sm">Trutnov je náš domov a záleží nám na jeho budoucnosti</p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

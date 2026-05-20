@@ -1,0 +1,224 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Máme rádi Trutnov – Kandidátka do komunálních voleb 2026{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-gradient relative overflow-hidden">
+    <!-- Banner image -->
+    {% if site_settings.hero_image %}
+    <div class="w-full">
+        <img src="{{ site_settings.hero_image.url }}" alt="Máme rádi Trutnov" class="w-full h-auto object-cover">
+    </div>
+    {% else %}
+    <div class="w-full py-16 lg:py-24 xl:py-28">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
+                <div class="flex-1 text-center lg:text-left">
+                    <h1 class="text-5xl sm:text-6xl lg:text-7xl xl:text-[5.5rem] text-white mb-2 tracking-tight leading-[1.05]">
+                        <span class="font-light">Máme rádi</span><br>
+                        <span class="font-black text-6xl sm:text-7xl lg:text-8xl xl:text-[6.5rem]">TRUTNOV</span>
+                    </h1>
+                    <div class="tagline-bar inline-block px-6 py-2.5 rounded mb-4 mt-2">
+                        <p class="text-white font-bold text-sm lg:text-base tracking-wider italic">
+                            Zodpovědnost &middot; Efektivita &middot; Otevřenost
+                        </p>
+                    </div>
+                </div>
+                <div class="flex-shrink-0 w-72 h-72 lg:w-[22rem] lg:h-[22rem] xl:w-[26rem] xl:h-[26rem] relative">
+                    {% if site_settings.logo %}
+                    <img src="{{ site_settings.logo.url }}" alt="Máme rádi Trutnov" class="w-full h-full object-contain drop-shadow-[0_0_40px_rgba(58,184,226,0.25)]">
+                    {% else %}
+                    <svg viewBox="0 0 100 90" class="w-full h-full drop-shadow-[0_0_40px_rgba(58,184,226,0.25)]">
+                        <defs>
+                            <linearGradient id="heartGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#3ab8e2;stop-opacity:0.9" />
+                                <stop offset="100%" style="stop-color:#1e6091;stop-opacity:0.95" />
+                            </linearGradient>
+                        </defs>
+                        <path d="M50 88 C25 65, 0 45, 0 25 C0 10, 12 0, 25 0 C35 0, 45 8, 50 15 C55 8, 65 0, 75 0 C88 0, 100 10, 100 25 C100 45, 75 65, 50 88Z" fill="url(#heartGrad)" />
+                    </svg>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    <!-- Text + buttons below the banner -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-2 pb-8 lg:pt-3 lg:pb-10 relative">
+        <div class="text-center">
+            <p class="text-sm lg:text-base text-blue-100/70 mb-4 max-w-2xl mx-auto leading-relaxed">
+                Společně pro lepší Trutnov. Využíváme nabyté zkušenosti, odpovědnost a konkrétní vize k rozvoji města.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <a href="{% url 'candidates' %}" class="group px-6 py-3 bg-white text-primary-900 font-bold rounded-full hover:bg-gray-100 transition-all shadow-xl hover:shadow-2xl text-base inline-flex items-center gap-2 justify-center">
+                    Poznejte naše kandidáty
+                    <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg>
+                </a>
+                <a href="{% url 'program' %}" class="px-6 py-3 border-2 border-white/30 text-white font-semibold rounded-full hover:bg-white/10 hover:border-white/50 transition-all text-base backdrop-blur-sm text-center">
+                    Náš program
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="absolute bottom-0 left-0 right-0">
+        <svg viewBox="0 0 1440 80" fill="none" preserveAspectRatio="none" class="w-full h-8 lg:h-14"><path d="M0 80L1440 80L1440 0C1200 60 900 80 720 70C540 60 240 20 0 50L0 80Z" fill="#f9fafb"/></svg>
+    </div>
+</section>
+
+<!-- Program Preview -->
+{% if program_categories %}
+<section class="py-16 lg:py-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <span class="text-primary-600 font-semibold text-sm uppercase tracking-wider">Proč do toho jdeme</span>
+            <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mt-2">Náš program</h2>
+            <p class="text-gray-500 mt-3 max-w-2xl mx-auto">Konkrétní kroky pro lepší Trutnov</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {% for cat in program_categories %}
+            <div class="card-hover bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+                <div class="w-12 h-12 bg-primary-50 rounded-xl flex items-center justify-center text-2xl mb-4">
+                    {{ cat.icon|default:"📋" }}
+                </div>
+                <h3 class="font-bold text-gray-900 text-lg mb-2">{{ cat.name }}</h3>
+                <p class="text-gray-500 text-sm leading-relaxed">{{ cat.description|truncatewords:20 }}</p>
+                {% if cat.points.all %}
+                <ul class="mt-3 space-y-1">
+                    {% for point in cat.points.all|slice:":3" %}
+                    <li class="text-sm text-gray-600 flex items-start gap-2">
+                        <span class="text-primary-500 mt-1">&#8226;</span>
+                        {{ point.title }}
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+        <div class="text-center mt-10">
+            <a href="{% url 'program' %}" class="inline-flex items-center gap-2 text-primary-600 font-semibold hover:text-primary-700 transition-colors">
+                Celý program
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </a>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Candidates Preview -->
+{% if candidates %}
+<section class="py-16 lg:py-24 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <span class="text-primary-600 font-semibold text-sm uppercase tracking-wider">Komunální volby 2026</span>
+            <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mt-2">Naši kandidáti</h2>
+            <p class="text-gray-500 mt-3">Lidé, kteří chtějí měnit Trutnov k lepšímu</p>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            {% for candidate in candidates %}
+            <a href="{% url 'candidate_detail' candidate.pk %}" class="card-hover group">
+                <div class="bg-gray-50 rounded-2xl overflow-hidden border border-gray-100">
+                    <div class="aspect-[4/5] bg-gradient-to-br from-primary-100 via-primary-50 to-blue-50 relative overflow-hidden">
+                        {% if candidate.photo %}
+                        <img src="{{ candidate.photo.url }}" alt="{{ candidate.full_name }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        {% else %}
+                        <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-primary-200/60 to-cyan-100/60">
+                            <div class="w-28 h-28 rounded-full bg-white/60 backdrop-blur flex items-center justify-center shadow-inner">
+                                <span class="text-4xl font-bold text-primary-400">{{ candidate.first_name|make_list|first }}{{ candidate.last_name|make_list|first }}</span>
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% if candidate.is_leader %}
+                        <span class="absolute top-4 left-4 bg-primary-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg">LÍDR</span>
+                        {% endif %}
+                        <span class="absolute top-4 right-4 bg-white/90 backdrop-blur text-gray-800 text-sm font-bold px-3 py-1 rounded-full shadow">{{ candidate.order }}.</span>
+                    </div>
+                    <div class="p-5">
+                        <h3 class="font-bold text-gray-900 text-lg group-hover:text-primary-600 transition-colors">{{ candidate.full_name }}</h3>
+                        {% if candidate.occupation %}
+                        <p class="text-gray-500 text-sm mt-1">{{ candidate.occupation }}</p>
+                        {% endif %}
+                        {% if candidate.age %}
+                        <p class="text-gray-400 text-xs mt-1">{{ candidate.age }} let{% if candidate.party %} &middot; {{ candidate.party }}{% endif %}</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+        <div class="text-center mt-10">
+            <a href="{% url 'candidates' %}" class="inline-flex items-center gap-2 px-6 py-3 bg-primary-600 text-white font-semibold rounded-full hover:bg-primary-700 transition-all shadow-md">
+                Všichni kandidáti
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </a>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Events Preview -->
+{% if upcoming_events %}
+<section class="py-16 lg:py-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <span class="text-primary-600 font-semibold text-sm uppercase tracking-wider">Kde se s námi potkáte</span>
+            <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mt-2">Nadcházející události</h2>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {% for event in upcoming_events %}
+            <div class="card-hover bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
+                <div class="flex items-center gap-3 mb-4">
+                    <div class="w-14 h-14 bg-primary-50 rounded-xl flex flex-col items-center justify-center">
+                        <span class="text-primary-600 font-bold text-lg leading-none">{{ event.date|date:"j" }}</span>
+                        <span class="text-primary-400 text-xs uppercase">{{ event.date|date:"M" }}</span>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-gray-900">{{ event.title }}</h3>
+                        {% if event.location %}
+                        <p class="text-gray-500 text-sm">{{ event.location }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+                {% if event.time_from %}
+                <p class="text-sm text-gray-500">
+                    <span class="font-medium">{{ event.time_from|time:"H:i" }}</span>
+                    {% if event.time_to %} – {{ event.time_to|time:"H:i" }}{% endif %}
+                </p>
+                {% endif %}
+                {% if event.description %}
+                <p class="text-gray-500 text-sm mt-2">{{ event.description|truncatewords:20 }}</p>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+        <div class="text-center mt-10">
+            <a href="{% url 'events' %}" class="inline-flex items-center gap-2 text-primary-600 font-semibold hover:text-primary-700 transition-colors">
+                Všechny události
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </a>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- CTA -->
+<section class="py-16 lg:py-24">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="hero-gradient rounded-3xl p-10 lg:p-16 text-center relative overflow-hidden">
+            <div class="absolute inset-0 opacity-10">
+                <svg class="w-full h-full" viewBox="0 0 800 400"><circle cx="700" cy="50" r="200" fill="white" opacity="0.1"/></svg>
+            </div>
+            <div class="relative">
+                <h2 class="text-3xl lg:text-4xl font-bold text-white mb-4">Máte otázku nebo nápad?</h2>
+                <p class="text-blue-100 text-lg mb-8">Rádi se s vámi spojíme. Napište nám a společně budeme řešit, co Trutnov potřebuje.</p>
+                <a href="{% url 'contact' %}" class="inline-flex items-center gap-2 px-8 py-4 bg-white text-primary-700 font-bold rounded-full hover:bg-gray-100 transition-all shadow-xl text-lg">
+                    Napište nám
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

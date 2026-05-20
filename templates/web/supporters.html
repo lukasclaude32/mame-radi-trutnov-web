@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}Podporovatelé – Máme rádi Trutnov{% endblock %}
+
+{% block content %}
+<section class="py-16 lg:py-24">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <span class="text-primary-600 font-semibold text-sm uppercase tracking-wider">Podporují nás</span>
+            <h1 class="text-3xl lg:text-5xl font-bold text-gray-900 mt-2">Podporovatelé</h1>
+        </div>
+
+        {% if supporters %}
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {% for supporter in supporters %}
+            <div class="card-hover bg-white rounded-2xl p-6 shadow-sm border border-gray-100 flex gap-5">
+                <div class="flex-shrink-0">
+                    {% if supporter.photo %}
+                    <img src="{{ supporter.photo.url }}" alt="{{ supporter.name }}" class="w-16 h-16 rounded-full object-cover">
+                    {% else %}
+                    <div class="w-16 h-16 rounded-full bg-primary-50 flex items-center justify-center">
+                        <span class="text-primary-600 font-bold text-xl">{{ supporter.name|first }}</span>
+                    </div>
+                    {% endif %}
+                </div>
+                <div>
+                    <h3 class="font-bold text-gray-900">{{ supporter.name }}</h3>
+                    {% if supporter.title %}
+                    <p class="text-primary-600 text-sm font-medium">{{ supporter.title }}</p>
+                    {% endif %}
+                    {% if supporter.quote %}
+                    <blockquote class="mt-2 text-gray-500 text-sm italic leading-relaxed border-l-2 border-primary-200 pl-3">
+                        "{{ supporter.quote }}"
+                    </blockquote>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="text-center py-16">
+            <svg class="w-16 h-16 text-gray-300 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+            <p class="text-gray-500 text-lg">Seznam podporovatelů bude brzy doplněn.</p>
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

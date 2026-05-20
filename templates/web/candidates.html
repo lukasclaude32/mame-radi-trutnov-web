@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}Kandidáti 2026 – Máme rádi Trutnov{% endblock %}
+
+{% block content %}
+<section class="py-16 lg:py-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <span class="text-primary-600 font-semibold text-sm uppercase tracking-wider">Komunální volby 2026</span>
+            <h1 class="text-3xl lg:text-5xl font-bold text-gray-900 mt-2">Kandidátní listina</h1>
+            <p class="text-gray-500 mt-3 max-w-2xl mx-auto">Poznejte lidi, kteří chtějí společně pracovat na lepším Trutnově</p>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {% for candidate in candidates %}
+            <a href="{% url 'candidate_detail' candidate.pk %}" class="card-hover group">
+                <div class="bg-white rounded-2xl overflow-hidden shadow-sm border border-gray-100">
+                    <div class="aspect-[4/5] bg-gradient-to-br from-primary-100 via-primary-50 to-blue-50 relative overflow-hidden">
+                        {% if candidate.photo %}
+                        <img src="{{ candidate.photo.url }}" alt="{{ candidate.full_name }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        {% else %}
+                        <div class="w-full h-full flex items-center justify-center bg-gradient-to-br from-primary-200/60 to-cyan-100/60">
+                            <div class="w-24 h-24 rounded-full bg-white/60 backdrop-blur flex items-center justify-center shadow-inner">
+                                <span class="text-3xl font-bold text-primary-400">{{ candidate.first_name|make_list|first }}{{ candidate.last_name|make_list|first }}</span>
+                            </div>
+                        </div>
+                        {% endif %}
+                        {% if candidate.is_leader %}
+                        <span class="absolute top-3 left-3 bg-primary-600 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg">LÍDR</span>
+                        {% endif %}
+                        <span class="absolute top-3 right-3 bg-white/90 backdrop-blur text-gray-800 text-sm font-bold w-8 h-8 rounded-full flex items-center justify-center shadow">{{ candidate.order }}</span>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold text-gray-900 group-hover:text-primary-600 transition-colors">{{ candidate.full_name }}</h3>
+                        {% if candidate.occupation %}
+                        <p class="text-gray-500 text-sm mt-1">{{ candidate.occupation }}</p>
+                        {% endif %}
+                        {% if candidate.age %}
+                        <p class="text-gray-400 text-xs mt-1">{{ candidate.age }} let{% if candidate.party %} &middot; {{ candidate.party }}{% endif %}</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+
+        {% if not candidates %}
+        <div class="text-center py-16">
+            <svg class="w-16 h-16 text-gray-300 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+            <p class="text-gray-500 text-lg">Kandidátní listina bude brzy zveřejněna.</p>
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}
