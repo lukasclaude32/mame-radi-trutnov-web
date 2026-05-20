@@ -46,6 +46,8 @@
             <a href="{% url 'home' %}" class="flex items-center gap-3 group">
                 {% if site_settings.logo %}
                 <img src="{{ site_settings.logo.url }}" alt="Logo" class="h-10 lg:h-12 w-auto">
+                {% else %}
+                <img src="{% static 'img/logo_heart.png' %}" alt="Logo" class="h-10 lg:h-12 w-auto">
                 {% endif %}
                 <div>
                     <span class="text-lg lg:text-xl font-bold text-primary-900 group-hover:text-primary-700 transition-colors">Máme rádi</span>
