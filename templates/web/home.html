@@ -7,44 +7,13 @@
 <!-- Hero Section -->
 <section class="hero-gradient relative overflow-hidden">
     <!-- Banner image -->
-    {% if site_settings.hero_image %}
     <div class="w-full">
+        {% if site_settings.hero_image %}
         <img src="{{ site_settings.hero_image.url }}" alt="Máme rádi Trutnov" class="w-full h-auto object-cover">
+        {% else %}
+        <img src="{% static 'img/hero_banner.jpg' %}" alt="Máme rádi Trutnov" class="w-full h-auto object-cover">
+        {% endif %}
     </div>
-    {% else %}
-    <div class="w-full py-16 lg:py-24 xl:py-28">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex flex-col lg:flex-row items-center gap-8 lg:gap-12">
-                <div class="flex-1 text-center lg:text-left">
-                    <h1 class="text-5xl sm:text-6xl lg:text-7xl xl:text-[5.5rem] text-white mb-2 tracking-tight leading-[1.05]">
-                        <span class="font-light">Máme rádi</span><br>
-                        <span class="font-black text-6xl sm:text-7xl lg:text-8xl xl:text-[6.5rem]">TRUTNOV</span>
-                    </h1>
-                    <div class="tagline-bar inline-block px-6 py-2.5 rounded mb-4 mt-2">
-                        <p class="text-white font-bold text-sm lg:text-base tracking-wider italic">
-                            Zodpovědnost &middot; Efektivita &middot; Otevřenost
-                        </p>
-                    </div>
-                </div>
-                <div class="flex-shrink-0 w-72 h-72 lg:w-[22rem] lg:h-[22rem] xl:w-[26rem] xl:h-[26rem] relative">
-                    {% if site_settings.logo %}
-                    <img src="{{ site_settings.logo.url }}" alt="Máme rádi Trutnov" class="w-full h-full object-contain drop-shadow-[0_0_40px_rgba(58,184,226,0.25)]">
-                    {% else %}
-                    <svg viewBox="0 0 100 90" class="w-full h-full drop-shadow-[0_0_40px_rgba(58,184,226,0.25)]">
-                        <defs>
-                            <linearGradient id="heartGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                                <stop offset="0%" style="stop-color:#3ab8e2;stop-opacity:0.9" />
-                                <stop offset="100%" style="stop-color:#1e6091;stop-opacity:0.95" />
-                            </linearGradient>
-                        </defs>
-                        <path d="M50 88 C25 65, 0 45, 0 25 C0 10, 12 0, 25 0 C35 0, 45 8, 50 15 C55 8, 65 0, 75 0 C88 0, 100 10, 100 25 C100 45, 75 65, 50 88Z" fill="url(#heartGrad)" />
-                    </svg>
-                    {% endif %}
-                </div>
-            </div>
-        </div>
-    </div>
-    {% endif %}
     <!-- Text + buttons below the banner -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-2 pb-8 lg:pt-3 lg:pb-10 relative">
         <div class="text-center">
