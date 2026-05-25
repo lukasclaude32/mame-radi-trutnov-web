@@ -15,6 +15,7 @@ if not User.objects.filter(username='admin').exists():
     print("Superuser 'admin' created (password: admin123)")
 
 # Site Settings
+SiteSettings.objects.filter(pk=1).delete()
 settings, _ = SiteSettings.objects.get_or_create(pk=1, defaults={
     "site_name": "Máme rádi Trutnov",
     "tagline": "A co vy?",
@@ -22,6 +23,7 @@ settings, _ = SiteSettings.objects.get_or_create(pk=1, defaults={
     "contact_email": "barboratomasova@seznam.cz",
     "contact_phone": "775 887 616",
     "facebook_url": "https://www.facebook.com/MameRadiTrutnov/",
+    "instagram_url": "https://www.instagram.com/mameraditrutnov/",
     "footer_text": "© 2026 Máme rádi Trutnov",
     "meta_description": "Máme rádi Trutnov – Kandidátka do komunálních voleb 2026. Společně pro lepší Trutnov.",
 })
