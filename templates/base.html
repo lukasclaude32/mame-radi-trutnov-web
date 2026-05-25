@@ -43,29 +43,29 @@
 <nav class="bg-white/95 backdrop-blur-md shadow-sm sticky top-0 z-50 border-b border-gray-100" id="navbar">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between items-center h-16 lg:h-20">
-            <a href="{% url 'home' %}" class="flex items-center gap-3 group">
+            <a href="{% url 'home' %}" class="flex items-center gap-3 group flex-shrink-0">
                 {% if site_settings.logo %}
-                <img src="{{ site_settings.logo.url }}" alt="Logo" class="h-10 lg:h-12 w-auto">
+                <img src="{{ site_settings.logo.url }}" alt="Logo" class="h-12 lg:h-14 w-auto">
                 {% else %}
-                <img src="{% static 'img/logo_heart.png' %}" alt="Logo" class="h-10 lg:h-12 w-auto">
+                <img src="{% static 'img/logo_heart.png' %}" alt="Logo" class="h-12 lg:h-14 w-auto">
                 {% endif %}
-                <div>
-                    <span class="text-lg lg:text-xl font-bold text-primary-900 group-hover:text-primary-700 transition-colors">Máme rádi</span>
-                    <span class="text-lg lg:text-xl font-extrabold text-primary-900 group-hover:text-primary-700 transition-colors"> TRUTNOV</span>
+                <div class="leading-tight">
+                    <span class="text-base lg:text-lg font-bold text-primary-900 group-hover:text-primary-700 transition-colors">Máme rádi</span><br>
+                    <span class="text-base lg:text-lg font-extrabold text-primary-900 group-hover:text-primary-700 transition-colors">TRUTNOV</span>
                 </div>
             </a>
 
             <!-- Desktop menu -->
-            <div class="hidden lg:flex items-center gap-1">
-                <a href="{% url 'home' %}" class="nav-link px-3 py-2 text-sm font-medium text-gray-700 hover:text-primary-600 transition-colors">Domů</a>
-                <a href="{% url 'about' %}" class="nav-link px-3 py-2 text-sm font-medium text-gray-700 hover:text-primary-600 transition-colors">Kdo jsme</a>
-                <a href="{% url 'candidates' %}" class="nav-link px-3 py-2 text-sm font-medium text-gray-700 hover:text-primary-600 transition-colors">Kandidáti 2026</a>
-                <a href="{% url 'program' %}" class="nav-link px-3 py-2 text-sm font-medium text-gray-700 hover:text-primary-600 transition-colors">Program</a>
-                <a href="{% url 'events' %}" class="nav-link px-3 py-2 text-sm font-medium text-gray-700 hover:text-primary-600 transition-colors">Události</a>
-                <a href="{% url 'posts' %}" class="nav-link px-3 py-2 text-sm font-medium text-gray-700 hover:text-primary-600 transition-colors">Aktuality</a>
-                <a href="{% url 'gallery' %}" class="nav-link px-3 py-2 text-sm font-medium text-gray-700 hover:text-primary-600 transition-colors">Foto/Video</a>
-                <a href="{% url 'supporters' %}" class="nav-link px-3 py-2 text-sm font-medium text-gray-700 hover:text-primary-600 transition-colors">Podporovatelé</a>
-                <a href="{% url 'contact' %}" class="ml-2 px-5 py-2.5 bg-primary-600 text-white text-sm font-semibold rounded-full hover:bg-primary-700 transition-all shadow-md hover:shadow-lg">Napište nám</a>
+            <div class="hidden lg:flex items-center gap-0.5 flex-nowrap">
+                <a href="{% url 'home' %}" class="nav-link px-2 xl:px-3 py-2 text-xs xl:text-sm font-medium text-gray-700 hover:text-primary-600 transition-colors whitespace-nowrap">Domů</a>
+                <a href="{% url 'about' %}" class="nav-link px-2 xl:px-3 py-2 text-xs xl:text-sm font-medium text-gray-700 hover:text-primary-600 transition-colors whitespace-nowrap">Kdo jsme</a>
+                <a href="{% url 'candidates' %}" class="nav-link px-2 xl:px-3 py-2 text-xs xl:text-sm font-medium text-gray-700 hover:text-primary-600 transition-colors whitespace-nowrap">Kandidáti 2026</a>
+                <a href="{% url 'program' %}" class="nav-link px-2 xl:px-3 py-2 text-xs xl:text-sm font-medium text-gray-700 hover:text-primary-600 transition-colors whitespace-nowrap">Program</a>
+                <a href="{% url 'events' %}" class="nav-link px-2 xl:px-3 py-2 text-xs xl:text-sm font-medium text-gray-700 hover:text-primary-600 transition-colors whitespace-nowrap">Události</a>
+                <a href="{% url 'posts' %}" class="nav-link px-2 xl:px-3 py-2 text-xs xl:text-sm font-medium text-gray-700 hover:text-primary-600 transition-colors whitespace-nowrap">Aktuality</a>
+                <a href="{% url 'gallery' %}" class="nav-link px-2 xl:px-3 py-2 text-xs xl:text-sm font-medium text-gray-700 hover:text-primary-600 transition-colors whitespace-nowrap">Foto/Video</a>
+                <a href="{% url 'supporters' %}" class="nav-link px-2 xl:px-3 py-2 text-xs xl:text-sm font-medium text-gray-700 hover:text-primary-600 transition-colors whitespace-nowrap">Podporovatelé</a>
+                <a href="{% url 'contact' %}" class="ml-1 px-4 py-2 bg-primary-600 text-white text-xs xl:text-sm font-semibold rounded-full hover:bg-primary-700 transition-all shadow-md hover:shadow-lg whitespace-nowrap">Napište nám</a>
             </div>
 
             <!-- Social icons -->
