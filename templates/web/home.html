@@ -9,9 +9,9 @@
     <!-- Banner image -->
     <div class="w-full">
         {% if site_settings.hero_image %}
-        <img src="{{ site_settings.hero_image.url }}" alt="Máme rádi Trutnov" class="w-full h-auto object-cover">
+        <img src="{{ site_settings.hero_image.url }}" alt="Máme rádi Trutnov" class="w-full h-auto object-cover" style="max-height: 60vh;">
         {% else %}
-        <img src="{% static 'img/hero_banner.jpg' %}" alt="Máme rádi Trutnov" class="w-full h-auto object-cover">
+        <img src="{% static 'img/hero_banner.jpg' %}" alt="Máme rádi Trutnov" class="w-full h-auto object-cover" style="max-height: 60vh;">
         {% endif %}
     </div>
     <!-- Text + buttons below the banner -->
