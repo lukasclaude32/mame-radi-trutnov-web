@@ -10,7 +10,8 @@ build/
 # Django
 db.sqlite3
 db.sqlite3-journal
-media/
+media/*
+!media/candidates/
 
 # Virtual environment
 venv/
