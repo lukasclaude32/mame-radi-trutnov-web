@@ -6,14 +6,80 @@
 {% block content %}
 <!-- Hero Section -->
 <section class="hero-gradient relative overflow-hidden">
-    <!-- Banner image -->
+    <!-- Banner carousel: campaign visual alternating with the candidate group photo -->
     <div class="w-full">
-        {% if site_settings.hero_image %}
-        <img src="{{ site_settings.hero_image.url }}" alt="Máme rádi Trutnov" class="w-full h-auto">
-        {% else %}
-        <img src="{% static 'img/hero_banner.jpg' %}" alt="Máme rádi Trutnov" class="w-full h-auto">
-        {% endif %}
+        <div id="hero-carousel" class="relative w-full overflow-hidden" style="aspect-ratio: 2560 / 928;">
+            <img src="{% static 'img/hero_banner.jpg' %}" alt="Máme rádi Trutnov"
+                 fetchpriority="high" data-slide="0"
+                 class="hero-slide absolute inset-0 w-full h-full object-cover" style="opacity: 1;">
+            <img src="{% static 'img/hero_group.jpg' %}" alt="Kandidáti Máme rádi Trutnov"
+                 data-slide="1" data-zoom="1"
+                 class="hero-slide absolute inset-0 w-full h-full object-cover" style="opacity: 0;">
+            <div class="absolute bottom-2.5 lg:bottom-5 left-1/2 -translate-x-1/2 flex gap-2.5 z-10">
+                <button type="button" data-goto="0" aria-label="Vizuál kampaně"
+                        class="hero-dot w-2.5 h-2.5 lg:w-3 lg:h-3 rounded-full bg-white/50 shadow-md transition-all duration-300 hover:bg-white/80"></button>
+                <button type="button" data-goto="1" aria-label="Fotografie kandidátů"
+                        class="hero-dot w-2.5 h-2.5 lg:w-3 lg:h-3 rounded-full bg-white/50 shadow-md transition-all duration-300 hover:bg-white/80"></button>
+            </div>
+        </div>
     </div>
+    <style>
+        #hero-carousel .hero-slide { transition: opacity 1.4s ease-in-out; will-change: opacity; }
+        #hero-carousel .hero-dot.active { background-color: #fff; transform: scale(1.25); }
+        @keyframes heroZoom { from { transform: scale(1.0); } to { transform: scale(1.05); } }
+        #hero-carousel .hero-slide.zooming { animation: heroZoom 8s ease-out forwards; }
+        @media (prefers-reduced-motion: reduce) {
+            #hero-carousel .hero-slide { transition: none; }
+            #hero-carousel .hero-slide.zooming { animation: none; }
+        }
+    </style>
+    <script>
+    (function () {
+        var carousel = document.getElementById("hero-carousel");
+        var slides = carousel.querySelectorAll(".hero-slide");
+        var dots = carousel.querySelectorAll(".hero-dot");
+        var current = 0;
+        var INTERVAL = 6500;
+        var reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        var paused = false;
+        var timer = null;
+
+        function show(i) {
+            current = i;
+            slides.forEach(function (slide, n) {
+                slide.style.opacity = n === i ? "1" : "0";
+                slide.classList.remove("zooming");
+                if (n === i && slide.dataset.zoom && !reducedMotion) {
+                    void slide.offsetWidth; /* restart animation */
+                    slide.classList.add("zooming");
+                }
+            });
+            dots.forEach(function (dot, n) {
+                dot.classList.toggle("active", n === i);
+            });
+        }
+
+        function schedule() {
+            if (timer) clearInterval(timer);
+            if (reducedMotion) return;
+            timer = setInterval(function () {
+                if (!paused && !document.hidden) show((current + 1) % slides.length);
+            }, INTERVAL);
+        }
+
+        dots.forEach(function (dot) {
+            dot.addEventListener("click", function () {
+                show(parseInt(dot.dataset.goto, 10));
+                schedule(); /* user interaction resets the clock */
+            });
+        });
+        carousel.addEventListener("mouseenter", function () { paused = true; });
+        carousel.addEventListener("mouseleave", function () { paused = false; });
+
+        show(0);
+        schedule();
+    })();
+    </script>
     <!-- Text + buttons below the banner -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-2 pb-8 lg:pt-3 lg:pb-10 relative">
         <div class="text-center">

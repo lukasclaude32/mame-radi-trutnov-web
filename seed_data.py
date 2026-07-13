@@ -6,7 +6,7 @@ django.setup()
 from django.contrib.auth.models import User
 from web.models import (
     SiteSettings, Candidate, ProgramCategory, ProgramPoint,
-    Event, Supporter
+    Event, Supporter, PhotoAlbum, Photo, VideoLink
 )
 
 # Create superuser
@@ -103,6 +103,29 @@ print("Program categories cleared")
 # once provided from the campaign's Facebook.
 Event.objects.all().delete()
 print("Events cleared")
+
+# Gallery: team photo album + intro video (files committed in media/)
+PhotoAlbum.objects.all().delete()
+album = PhotoAlbum.objects.create(
+    title="Společné focení kandidátky",
+    description="Tým Máme rádi Trutnov pro komunální volby 2026.",
+    cover_image="photos/tym-podloubi.jpg",
+    is_published=True,
+)
+Photo.objects.create(album=album, image="photos/tym-podloubi.jpg", caption="Tým Máme rádi Trutnov", order=0)
+Photo.objects.create(album=album, image="photos/banner-mame-radi-trutnov.jpg", caption="Zodpovědnost • Efektivita • Otevřenost", order=1)
+print("Photo album created")
+
+VideoLink.objects.all().delete()
+VideoLink.objects.create(
+    title="Máme rádi Trutnov",
+    description="Podívejte se, kdo jsme a proč do komunálních voleb 2026 jdeme společně – ODS s podporou KDU-ČSL a TOP 09.",
+    url="/media/videos/uvodni-video.mp4",
+    thumbnail="videos/uvodni-video-poster.jpg",
+    order=0,
+    is_published=True,
+)
+print("Intro video created")
 
 print("\nDone! You can now run: python manage.py runserver")
 print("Admin: http://localhost:8000/admin-panel/")
