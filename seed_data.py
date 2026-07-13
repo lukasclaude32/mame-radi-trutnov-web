@@ -109,11 +109,11 @@ PhotoAlbum.objects.all().delete()
 album = PhotoAlbum.objects.create(
     title="Společné focení kandidátky",
     description="Tým Máme rádi Trutnov pro komunální volby 2026.",
-    cover_image="photos/tym-podloubi.jpg",
+    cover_image="photos/tym-namesti.jpg",
     is_published=True,
 )
-Photo.objects.create(album=album, image="photos/tym-podloubi.jpg", caption="Tým Máme rádi Trutnov", order=0)
-Photo.objects.create(album=album, image="photos/banner-mame-radi-trutnov.jpg", caption="Zodpovědnost • Efektivita • Otevřenost", order=1)
+Photo.objects.create(album=album, image="photos/tym-namesti.jpg", caption="Tým Máme rádi Trutnov na Krakonošově náměstí", order=0)
+Photo.objects.create(album=album, image="photos/tym-podloubi.jpg", caption="Tým Máme rádi Trutnov", order=1)
 print("Photo album created")
 
 VideoLink.objects.all().delete()
