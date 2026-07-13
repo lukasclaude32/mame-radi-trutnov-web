@@ -36,7 +36,10 @@ def about(request):
 
 def candidates_list(request):
     candidates = Candidate.objects.filter(is_visible=True)
-    return render(request, "web/candidates.html", {"candidates": candidates})
+    leader = candidates.filter(is_leader=True).first()
+    if leader:
+        candidates = candidates.exclude(pk=leader.pk)
+    return render(request, "web/candidates.html", {"candidates": candidates, "leader": leader})
 
 
 def candidate_detail(request, pk):
