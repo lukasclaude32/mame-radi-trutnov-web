@@ -2,9 +2,14 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
+from django.conf import settings as django_settings
+from django.core.mail import EmailMessage
 from django.http import JsonResponse
 from django.db.models import Count
 from datetime import date
+import logging
+
+logger = logging.getLogger(__name__)
 
 from web.models import (
     SiteSettings, Candidate, ProgramCategory, ProgramPoint,
@@ -88,7 +93,8 @@ def contact(request):
     if request.method == "POST":
         form = ContactForm(request.POST)
         if form.is_valid():
-            form.save()
+            msg = form.save()
+            _send_contact_notification(msg)
             messages.success(request, "Děkujeme za vaši zprávu! Brzy se vám ozveme.")
             return redirect("contact")
     else:
@@ -97,6 +103,33 @@ def contact(request):
 
 
 # ==================== ADMIN PANEL ====================
+
+def _send_contact_notification(msg):
+    """Forward a contact form message to the campaign mailbox.
+
+    Failures are logged but must not break the form for the visitor —
+    the message is always stored in the admin panel as well.
+    """
+    subject = f"Nová zpráva z webu: {msg.subject or 'Bez předmětu'}"
+    body = (
+        f"Jméno: {msg.name}\n"
+        f"E-mail: {msg.email}\n\n"
+        f"{msg.message}\n\n"
+        "---\n"
+        "Odesláno z formuláře Napište nám na webu Máme rádi Trutnov.\n"
+        "Odpovědět můžete přímo na tento e-mail (odpověď půjde odesílateli)."
+    )
+    try:
+        email = EmailMessage(
+            subject=subject,
+            body=body,
+            to=[django_settings.CONTACT_FORM_RECIPIENT],
+            reply_to=[msg.email],
+        )
+        email.send(fail_silently=False)
+    except Exception:
+        logger.exception("Contact form e-mail notification failed")
+
 
 def admin_login(request):
     if request.user.is_authenticated:

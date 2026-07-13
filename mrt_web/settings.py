@@ -89,3 +89,19 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_URL = '/admin-panel/login/'
 LOGIN_REDIRECT_URL = '/admin-panel/'
+
+# E-mail: contact form messages are forwarded to CONTACT_FORM_RECIPIENT.
+# SMTP is used only when EMAIL_HOST_USER + EMAIL_HOST_PASSWORD are set
+# (on Render: Gmail app password); otherwise e-mails go to the console (dev).
+EMAIL_HOST = os.environ.get('EMAIL_HOST', 'smtp.gmail.com')
+EMAIL_PORT = int(os.environ.get('EMAIL_PORT', '587'))
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', '')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', '')
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER or 'web@mameraditrutnov.cz'
+if EMAIL_HOST_USER and EMAIL_HOST_PASSWORD:
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+else:
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+CONTACT_FORM_RECIPIENT = os.environ.get('CONTACT_FORM_RECIPIENT', 'baratomasovapr@gmail.com')
