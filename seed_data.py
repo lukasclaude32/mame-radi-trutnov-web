@@ -79,7 +79,7 @@ candidates_data = [
     {"order": 26, "title_prefix": "Ing.", "first_name": "Karel", "last_name": "Kostka", "occupation": "projektový manažer", "party": "TOP 09"},
     {"order": 27, "photo": "candidates/27-simona-vomackova.jpg", "title_prefix": "Mgr.", "first_name": "Simona", "last_name": "Vomáčková", "occupation": "podnikatelka", "party": "ODS"},
     {"order": 28, "photo": "candidates/28-lukas-haase.jpg", "title_prefix": "JUDr.", "first_name": "Lukáš", "last_name": "Haase", "occupation": "podnikatel", "party": "ODS"},
-    {"order": 29, "first_name": "Zuzana", "last_name": "Trösterová", "occupation": "důchodkyně", "party": "ODS"},
+    {"order": 29, "photo": "candidates/29-zuzana-trosterova.jpg", "first_name": "Zuzana", "last_name": "Trösterová", "occupation": "důchodkyně", "party": "ODS"},
     {"order": 30, "photo": "candidates/30-pavel-skop.jpg", "first_name": "Pavel", "last_name": "Škop", "occupation": "OSVČ", "party": "ODS"},
     {"order": 31, "photo": "candidates/31-tomas-krcmar.jpg", "first_name": "Tomáš", "last_name": "Krčmář", "occupation": "podnikatel", "party": "ODS"},
     {"order": 32, "photo": "candidates/32-prokop-barton.jpg", "first_name": "Prokop", "last_name": "Bartoň", "occupation": "student", "party": "KDU-ČSL"},

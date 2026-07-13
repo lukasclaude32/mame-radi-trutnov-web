@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block title %}Kandidáti 2026 – Máme rádi Trutnov{% endblock %}
 
@@ -42,7 +43,8 @@
                         {{ leader.bio|linebreaksbr }}
                     </div>
                     {% endif %}
-                    <p class="mt-6 text-xl text-gray-900" style="font-family: 'Segoe Script', 'Brush Script MT', cursive;">{{ leader.first_name }} {{ leader.last_name }}</p>
+                    <img src="{% static 'img/rosa_signature.png' %}" alt="Podpis Michala Rosy"
+                         width="436" height="251" class="mt-6 w-44 sm:w-56 h-auto">
                 </div>
             </div>
         </div>
